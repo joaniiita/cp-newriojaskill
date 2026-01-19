@@ -30,6 +30,7 @@ class SkillController extends Controller
         }
 
         try{
+            $this->authorize('create', Skill::class);
             $skill = Skill::create([
                 'name' => $request->name,
                 'description' => $request->description
@@ -52,6 +53,7 @@ class SkillController extends Controller
         }
 
         try {
+            $this->authorize('update', $skill);
             $skill->name = $request->name;
             $skill->description = $request->description;
 
@@ -64,6 +66,7 @@ class SkillController extends Controller
 
     function destroy(Skill $skill)
     {
+        $this->authorize('delete', $skill);
         $skill->delete();
         return response()->json(['message' => 'Skill deleted successfully'], 200);
     }

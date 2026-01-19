@@ -32,6 +32,7 @@ class EvolutionTypeController extends Controller
         }
 
         try {
+            $this->authorize('create', EvolutionType::class);
             $evolution_types = EvolutionType::create([
                'name' => $request->name,
                'description' => $request->description,
@@ -56,6 +57,7 @@ class EvolutionTypeController extends Controller
         }
 
         try {
+            $this->authorize('update', $evolution_type);
             $evolution_type->name = $request->name;
             $evolution_type->description = $request->description;
             $evolution_type->ranking = $request->ranking;
@@ -69,6 +71,7 @@ class EvolutionTypeController extends Controller
 
     function destroy(EvolutionType $evolution_type)
     {
+        $this->authorize('delete', $evolution_type);
         $evolution_type->delete();
         return response()->json(['message' => 'Evolution type deleted successfully'], 200);
     }

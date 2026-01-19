@@ -35,6 +35,7 @@ class DigimonController extends Controller
         }
 
         try {
+            $this->authorize('create', Digimon::class);
             $image = null;
 
             if ($request->hasFile('image_url')){
@@ -74,7 +75,7 @@ class DigimonController extends Controller
         }
 
         try {
-
+            $this->authorize('update', $digimon);
             if ($request->hasFile('image_url')){
                 $image = time() . '.' . $request->image_url->extension();
                 $request->file('image_url')->move(public_path('images'), $image);
@@ -97,6 +98,7 @@ class DigimonController extends Controller
     }
 
     public function destroy(Digimon $digimon){
+        $this->authorize('delete', $digimon);
         $digimon->delete();
         return response()->json(['message' => 'Digimon deleted successfully'], 200);
     }

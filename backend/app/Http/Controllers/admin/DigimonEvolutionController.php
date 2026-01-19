@@ -36,6 +36,7 @@ class DigimonEvolutionController extends Controller
         }
 
         try{
+            $this->authorize('create', DigimonEvolution::class);
             $digievolution = DigimonEvolution::create([
                 'id_digimon_previous' => $request->id_digimon_previous,
                 'id_digimon_next' => $request->id_digimon_next,
@@ -64,6 +65,7 @@ class DigimonEvolutionController extends Controller
         }
 
         try {
+            $this->authorize('update', DigimonEvolution::class);
             $digievolution = DigimonEvolution::where('id_digimon_previous', $prev)->where('id_digimon_next', $next)->update([
                 'id_digimon_previous' => $request->id_digimon_previous,
                 'id_digimon_next' => $request->id_digimon_next,
@@ -81,6 +83,7 @@ class DigimonEvolutionController extends Controller
     }
 
     function destroy($prev, $next){
+        $this->authorize('delete', DigimonEvolution::class);
         $digievolution = DigimonEvolution::where('id_digimon_previous', $prev)->where('id_digimon_next', $next)->delete();
         return response()->json(['message' => 'Digimon evolution deleted successfully'], 200);
     }
