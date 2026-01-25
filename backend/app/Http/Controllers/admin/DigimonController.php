@@ -78,7 +78,7 @@ class DigimonController extends Controller
             $this->authorize('update', $digimon);
             if ($request->hasFile('image_url')){
                 $image = time() . '.' . $request->image_url->extension();
-                $request->file('image_url')->move(public_path('images'), $image);
+                $request->file('image_url')->move(public_path('assets/images/digimons'), $image);
                 $digimon->image_url = $image;
             }
 
